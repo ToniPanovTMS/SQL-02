@@ -5,7 +5,7 @@ public static void main(String[] args)throws ClassNotFoundException, SQLExceptio
     Connect.CreateDB();
     Connect.WriteDB();
     //conn.ReadDB();
-    //conn.CloseDB();
+    Connect.CloseDB();
 }
 }
 

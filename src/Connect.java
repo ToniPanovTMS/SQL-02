@@ -17,7 +17,7 @@ public class Connect {
     {
         statmt = Connect.createStatement();
         try {
-            statmt.execute("CREATE TABLE 'types' ('id' INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,'type' VARCHAR(100) NOT NULL);");
+            statmt.execute("CREATE TABLE if not exists 'types' ('id' INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, 'type' VARCHAR(100) UNIQUE NOT NULL)");
         }catch (Exception e){
             System.out.println("База существует");
         }
@@ -27,20 +27,28 @@ public class Connect {
 
     public static void WriteDB()  throws ClassNotFoundException, SQLException{
         statmt = Connect.createStatement();
-
+        String[] str = new String[]{"Абиссинская кошка","Австралийский мист","Американская жесткошерстная"};
         try {
-            statmt.execute("INSERT INTO types VALUES (1,'Абиссинская кошка');");
+            statmt.execute("INSERT INTO types (type) VALUES ('" + str[0] + "')");
         }catch (Exception e){
             System.out.println("Запись выполнена");
         }
         try {
-            statmt.execute("INSERT INTO types VALUES (2,'Австралийский мист');");
+            statmt.execute("INSERT INTO types (type) VALUES ('" + str[1] + "')");
         }catch (Exception e){
             System.out.println("Запись выполнена");
         }try {
-            statmt.execute( "INSERT INTO types VALUES (3,'Американская жесткошерстная');");
+            statmt.execute( "INSERT INTO types (type) VALUES ('" + str[2] + "')");
         }catch (Exception e){
             System.out.println("Запись выполнена");
         }
+    }
+
+    public static void ReadDB() {
+    }
+
+    public static void CloseDB() throws SQLException {
+        Connect.close();
+        statmt.close();
     }
 }
