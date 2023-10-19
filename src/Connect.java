@@ -76,18 +76,15 @@ public class Connect {
         Class.forName("org.sqlite.JDBC");
         Connect=DriverManager.getConnection("jdbc:sqlite:My_cats.db");
     }
-    public static void CreateDB() throws ClassNotFoundException, SQLException
-    {
+    public static void CreateDB() throws ClassNotFoundException, SQLException{
         statmt = Connect.createStatement();
         try {
-            statmt.execute("CREATE TABLE if not exists 'types' ('id' INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, 'type' VARCHAR(100) UNIQUE NOT NULL)");
+            statmt.execute("CREATE TABLE if not exists 'types' ('id' INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, 'type' VARCHAR(100) NOT NULL)");
         }catch (Exception e){
             System.out.println("База существует");
         }
 
-
     }
-
     public static void WriteDB()  throws ClassNotFoundException, SQLException{
         statmt = Connect.createStatement();
         String[] str = new String[]{"Абиссинская кошка","Австралийский мист","Американская жесткошерстная"};
@@ -105,7 +102,6 @@ public class Connect {
         }catch (Exception e){
         }
     }
-
     public static void get_all_types() throws SQLException {
         statmt = Connect.createStatement();
         ResultSet resultSet = statmt.executeQuery("SELECT * FROM types");
@@ -125,16 +121,12 @@ public class Connect {
         }
         JOptionPane.showMessageDialog(null,Str,"Все сроки",JOptionPane.INFORMATION_MESSAGE);
     }
-
     public static void get_type(int id) throws SQLException {
         statmt = Connect.createStatement();
         ResultSet resultSet = statmt.executeQuery("SELECT * FROM types WHERE id='"+id+"'");
         String Str=resultSet.getInt("id") + " " + resultSet.getString("type");
         JOptionPane.showMessageDialog(null,Str,"Все сроки",JOptionPane.INFORMATION_MESSAGE);
     }
-
-
-
     public static void Write2DB()  throws SQLException{
         statmt = Connect.createStatement();
 
@@ -147,7 +139,6 @@ public class Connect {
             i++;
         }
     }
-
     public static void update_type(int id, String new_type) throws SQLException {
         statmt = Connect.createStatement();
         statmt.execute("UPDATE types SET type ='"+new_type+"' WHERE id = '" + id + "';");
@@ -156,10 +147,15 @@ public class Connect {
         statmt = Connect.createStatement();
         statmt.execute("DELETE FROM types WHERE id = '"+id+"';");
     }
-
-
     public static void CloseDB() throws SQLException {
         Connect.close();
         statmt.close();
+    }
+
+    public static void CreateDB_2() throws SQLException {
+        statmt = Connect.createStatement();
+        statmt.execute("CREATE TABLE if not exists cats (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20) NOT NULL, type_id INTEGER NOT NULL, age INTEGER NOT NULL, weight DOUBLE," +
+                "FOREIGN KEY(type_id) REFERENCES types (id))");
+        System.out.println("Таблица Коты создана");
     }
 }

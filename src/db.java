@@ -10,13 +10,14 @@ public class db{
 public static void main(String[] args)throws ClassNotFoundException, SQLException{
     Connect.Connect();
     Connect.CreateDB();
+    Connect.CreateDB_2();
     //Connect.WriteDB();
     Connect.Write2DB();
     //update_type_Info();
     //delete_type_Info();
 
     //get_type_Info();
-    get_type_where_Info();
+    //get_type_where_Info();
     //Connect.get_all_types();
     Connect.CloseDB();
 }
