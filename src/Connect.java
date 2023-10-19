@@ -117,7 +117,8 @@ public class Connect {
     }
     public static void get_type_where(String where) throws SQLException {
         statmt = Connect.createStatement();
-        ResultSet resultSet = statmt.executeQuery("SELECT * FROM types WHERE '"+where+"'");
+        String query = "SELECT * FROM types WHERE " + where;
+        ResultSet resultSet = statmt.executeQuery(query);
         String Str="";
         while (resultSet.next()) {
             Str=Str+resultSet.getInt("id") + " " + resultSet.getString("type")+"\n";
