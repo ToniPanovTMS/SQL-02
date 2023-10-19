@@ -102,14 +102,20 @@ public class Connect {
         }try {
             statmt.execute( "INSERT INTO types (type) VALUES ('" + str[2] + "')");
         }catch (Exception e){
-            System.out.println("Запись выполнена");
         }
     }
 
-    public static void ReadDB() {
+    public static void ReadDB() throws SQLException {
+        statmt = Connect.createStatement();
+        ResultSet resultSet = statmt.executeQuery("SELECT * FROM types");
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String type = resultSet.getString("type");
+            System.out.println(id + "\t|" + type);
+        }
     }
 
-    public static void Write2DB()  throws ClassNotFoundException, SQLException{
+    public static void Write2DB()  throws SQLException{
         statmt = Connect.createStatement();
 
         int i=0;
@@ -117,11 +123,20 @@ public class Connect {
             try {
                 statmt.execute("INSERT INTO types (type) VALUES ('" + types[i] + "')");
             }catch (Exception e){
-                System.out.println("Запись выполнена ранее");
             }
             i++;
         }
     }
+
+    public static void update_type(int id, String new_type) throws SQLException {
+        statmt = Connect.createStatement();
+        statmt.execute("UPDATE types SET type ='"+new_type+"' WHERE id = '" + id + "';");
+    }
+    public static void delete_type(int id) throws SQLException {
+        statmt = Connect.createStatement();
+        statmt.execute("DELETE FROM types WHERE id = '"+id+"';");
+    }
+
 
     public static void CloseDB() throws SQLException {
         Connect.close();
