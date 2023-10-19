@@ -16,6 +16,31 @@ public class Connect {
     public static void CreateDB() throws ClassNotFoundException, SQLException
     {
         statmt = Connect.createStatement();
-        statmt.execute("CREATE TABLE 'types' ('id' INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,'type' VARCHAR(100) NOT NULL);");
+        try {
+            statmt.execute("CREATE TABLE 'types' ('id' INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE,'type' VARCHAR(100) NOT NULL);");
+        }catch (Exception e){
+            System.out.println("База существует");
+        }
+
+
+    }
+
+    public static void WriteDB()  throws ClassNotFoundException, SQLException{
+        statmt = Connect.createStatement();
+
+        try {
+            statmt.execute("INSERT INTO types VALUES (1,'Абиссинская кошка');");
+        }catch (Exception e){
+            System.out.println("Запись выполнена");
+        }
+        try {
+            statmt.execute("INSERT INTO types VALUES (2,'Австралийский мист');");
+        }catch (Exception e){
+            System.out.println("Запись выполнена");
+        }try {
+            statmt.execute( "INSERT INTO types VALUES (3,'Американская жесткошерстная');");
+        }catch (Exception e){
+            System.out.println("Запись выполнена");
+        }
     }
 }

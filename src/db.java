@@ -3,7 +3,7 @@ public class db{
 public static void main(String[] args)throws ClassNotFoundException, SQLException{
     Connect.Connect();
     Connect.CreateDB();
-    //conn.WriteDB();
+    Connect.WriteDB();
     //conn.ReadDB();
     //conn.CloseDB();
 }
