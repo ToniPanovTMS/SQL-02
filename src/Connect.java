@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -105,15 +106,33 @@ public class Connect {
         }
     }
 
-    public static void ReadDB() throws SQLException {
+    public static void get_all_types() throws SQLException {
         statmt = Connect.createStatement();
         ResultSet resultSet = statmt.executeQuery("SELECT * FROM types");
+        String Str="";
         while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String type = resultSet.getString("type");
-            System.out.println(id + "\t|" + type);
+            Str=Str+resultSet.getInt("id") + " " + resultSet.getString("type")+"\n";
         }
+        JOptionPane.showMessageDialog(null,Str,"Все сроки",JOptionPane.INFORMATION_MESSAGE);
     }
+    public static void get_type_where(String where) throws SQLException {
+        statmt = Connect.createStatement();
+        ResultSet resultSet = statmt.executeQuery("SELECT * FROM types WHERE '"+where+"'");
+        String Str="";
+        while (resultSet.next()) {
+            Str=Str+resultSet.getInt("id") + " " + resultSet.getString("type")+"\n";
+        }
+        JOptionPane.showMessageDialog(null,Str,"Все сроки",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void get_type(int id) throws SQLException {
+        statmt = Connect.createStatement();
+        ResultSet resultSet = statmt.executeQuery("SELECT * FROM types WHERE id='"+id+"'");
+        String Str=resultSet.getInt("id") + " " + resultSet.getString("type");
+        JOptionPane.showMessageDialog(null,Str,"Все сроки",JOptionPane.INFORMATION_MESSAGE);
+    }
+
+
 
     public static void Write2DB()  throws SQLException{
         statmt = Connect.createStatement();

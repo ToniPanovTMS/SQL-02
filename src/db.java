@@ -5,14 +5,19 @@ import java.util.Scanner;
 public class db{
     static int id;
     static String new_type;
+    static String where;
     static Scanner scanner= new Scanner(System.in);
 public static void main(String[] args)throws ClassNotFoundException, SQLException{
     Connect.Connect();
     Connect.CreateDB();
-   // Connect.WriteDB();
+    //Connect.WriteDB();
     Connect.Write2DB();
-    update_type_Info();
-    delete_type_Info();
+    //update_type_Info();
+    //delete_type_Info();
+
+    //get_type_Info();
+    get_type_where_Info();
+    //Connect.get_all_types();
     Connect.CloseDB();
 }
 static void update_type_Info() throws SQLException {
@@ -27,7 +32,7 @@ static void update_type_Info() throws SQLException {
     new_type=JOptionPane.showInputDialog(null,"Введите значение поля, которое хотите установить","Изменение",JOptionPane.QUESTION_MESSAGE);
     Connect.update_type(id,new_type);
 }
-    static void delete_type_Info() throws SQLException {
+static void delete_type_Info() throws SQLException {
         id=-1;
         while (id<0)
             try {
@@ -36,6 +41,26 @@ static void update_type_Info() throws SQLException {
                 JOptionPane.showMessageDialog(null,"Вы ввели не корректные значения");
             }
         Connect.delete_type(id);
+    }
+static void get_type_Info() throws SQLException {
+        id=-1;
+        while (id<0)
+            try {
+                id = Integer.parseInt(JOptionPane.showInputDialog(null, "Введите id поля, которое вы хотите Узнать","SELECT", JOptionPane.QUESTION_MESSAGE));
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null,"Вы ввели не корректные значения");
+            }
+        Connect.get_type(id);
+    }
+static void get_type_where_Info() throws SQLException {
+        where=null;
+        while (where==null)
+            try {
+                where=JOptionPane.showInputDialog(null,"Введите запрос","SELECT2",JOptionPane.QUESTION_MESSAGE);
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null,"Вы ввели не корректные значения");
+            }
+        Connect.get_type_where(where);
     }
 }
 
