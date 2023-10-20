@@ -151,11 +151,34 @@ public class Connect {
         Connect.close();
         statmt.close();
     }
-
     public static void CreateDB_2() throws SQLException {
         statmt = Connect.createStatement();
-        statmt.execute("CREATE TABLE if not exists cats (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(20) NOT NULL, type_id INTEGER NOT NULL, age INTEGER NOT NULL, weight DOUBLE," +
+        statmt.execute("CREATE TABLE if not exists cats (id INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE, name VARCHAR(20) NOT NULL, type_id INTEGER NOT NULL, age INTEGER NOT NULL, weight DOUBLE," +
                 "FOREIGN KEY(type_id) REFERENCES types (id))");
-        System.out.println("Таблица Коты создана");
     }
+    public static void insert_cat(String name, String type, int age, Double weight) throws SQLException {
+        try {
+            ResultSet resultSet = getType("type = '" + type + "'");
+            int id;
+            if (resultSet.isBeforeFirst()) //если находится такой тип, то берём его id
+                id = resultSet.getInt("id");
+            else { //если нет такого типа, то создаём новый и берём
+                try {
+                    statmt.execute("INSERT INTO types (type) VALUES ('" + type + "')");
+                } catch (Exception e) {
+                }
+                id = getType("type = '" + type + "'").getInt("id");
+            }
+            Statement statement = Connect.createStatement();
+            statement.execute("INSERT INTO 'cats' ('name','type_id','age','weight') " +
+                    "VALUES ('" + name + "'," + id + "," + age + "," + weight + ")");
+        } catch (Exception e) {
+        }
+    }
+    private static ResultSet getType(String type) throws SQLException {
+        Statement statement = Connect.createStatement();
+        String query = "SELECT id, type FROM types WHERE " + type;
+        return statement.executeQuery(query);
+    }
+
 }
