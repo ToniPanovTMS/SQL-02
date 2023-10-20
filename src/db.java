@@ -18,7 +18,8 @@ public class db{
         Connect.CreateDB();
         Connect.CreateDB_2();
         //Connect.WriteDB();
-        //Connect.Write2DB();
+        Connect.Write2DB();
+        Connect.add_more_cats(5000);
         //update_type_Info();
         //delete_type_Info();
         //insert_cat_Info();
