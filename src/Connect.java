@@ -207,7 +207,33 @@ public class Connect {
     }
 
 
-
+    public static void get_all_Cats() throws SQLException {
+        statmt = Connect.createStatement();
+        ResultSet resultSet = statmt.executeQuery("SELECT * FROM cats");
+        String Str="";
+        while (resultSet.next()) {
+            System.out.println(resultSet.getInt("id") + " " + resultSet.getString("name")+ " " +resultSet.getInt("type_id")+ " " +resultSet.getInt("age")+ " " +resultSet.getDouble("weight")+"\n");
+            Str=Str+resultSet.getInt("id") + " " + resultSet.getString("name")+ " " +resultSet.getInt("type_id")+ " " +resultSet.getInt("age")+ " " +resultSet.getDouble("weight")+"\n";
+        }
+        JOptionPane.showMessageDialog(null,Str,"Все сроки",JOptionPane.INFORMATION_MESSAGE);
+    }// получить все типы
+    public static void get_Cats_where(String where) throws SQLException {
+        statmt = Connect.createStatement();
+        String query = "SELECT * FROM cats WHERE " + where;
+        ResultSet resultSet = statmt.executeQuery(query);
+        String Str="";
+        while (resultSet.next()) {
+            System.out.println(resultSet.getInt("id") + " " + resultSet.getString("name")+ " " +resultSet.getInt("type_id")+ " " +resultSet.getInt("age")+ " " +resultSet.getDouble("weight")+"\n");
+            Str=Str+resultSet.getInt("id") + " " + resultSet.getString("name")+ " " +resultSet.getInt("type_id")+ " " +resultSet.getInt("age")+ " " +resultSet.getDouble("weight")+"\n";
+        }
+        JOptionPane.showMessageDialog(null,Str,"Все сроки",JOptionPane.INFORMATION_MESSAGE);
+    }// получить типы по запросу
+    public static void get_Cats(int id) throws SQLException {
+        statmt = Connect.createStatement();
+        ResultSet resultSet = statmt.executeQuery("SELECT * FROM cats WHERE id='"+id+"'");
+        String Str=resultSet.getInt("id") + " " + resultSet.getString("name")+ " " +resultSet.getInt("type_id")+ " " +resultSet.getInt("age")+ " " +resultSet.getDouble("weight")+"\n";
+        JOptionPane.showMessageDialog(null,Str,"Одін котік",JOptionPane.INFORMATION_MESSAGE);
+    }// получить типы по id
 
 
 

@@ -18,8 +18,8 @@ public class db{
         Connect.CreateDB();
         Connect.CreateDB_2();
         //Connect.WriteDB();
-        Connect.Write2DB();
-        Connect.add_more_cats(5000);
+        //Connect.Write2DB();
+        //Connect.add_more_cats(5000);
         //update_type_Info();
         //delete_type_Info();
         //insert_cat_Info();
@@ -29,7 +29,10 @@ public class db{
         //delete_cat_id_Info();
         //delete_cat_where_Info();
         //update_cat_id_Info();
-        update_cat_where_Info();
+        //update_cat_where_Info();
+        //Connect.get_all_Cats();
+        //get_cats_Info();
+        get_cats_where_Info();
         Connect.CloseDB();
     }
     static void update_type_Info() throws SQLException {
@@ -172,6 +175,27 @@ public class db{
         }
         Connect.update_cat(where,name+"    "+type+"    "+age+"    "+weight);
     }
+    static void get_cats_Info() throws SQLException {
+        id=-1;
+        while (id<0)
+            try {
+                id = Integer.parseInt(JOptionPane.showInputDialog(null, "Введите id Котіка, которое вы хотите Узнать","SELECT_CAT_1", JOptionPane.QUESTION_MESSAGE));
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null,"Вы ввели не корректные значения");
+            }
+        Connect.get_Cats(id);
+    }
+    static void get_cats_where_Info() throws SQLException {
+        where=null;
+        while (where==null)
+            try {
+                where=JOptionPane.showInputDialog(null,"Введите запрос","SELECT_CAT_2",JOptionPane.QUESTION_MESSAGE);
+            }catch (Exception e){
+                JOptionPane.showMessageDialog(null,"Вы ввели не корректные значения");
+            }
+        Connect.get_Cats_where(where);
+    }
+
 }
 
 
